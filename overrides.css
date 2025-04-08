@@ -1,0 +1,293 @@
+/*  ====== ABOUT THIS FILE ======
+
+When I updated my Squarespace site https://kathy-bateman.squarespace.com/ to a new template (Squarespace version 7.0-Bedford familiy, Hayden template) I noticed some issues with accessibility, specifically as it related to indicating interactive elements.
+
+This is a copy of the Custom CSS I added to increase the accessibility.
+
+Unfortunately, the template has some other issues with accessibility that I can't address with a custom CSS overrides alone. For example, on the blog list page (https://www.kathybateman.com/blog) the titles of all the blog entries are <h1> but ideally there should only be one <h1> on the page. If able, I would restructure the html of the page to add one <h1> at the top with the blog name and the title of each blog entry would be an <h2>. The closest I could get was to change the visual appearance of the page by adding text that looks like (but isn't actually) an <h1> at the top using a ::before and then to change the look of the blog entry titles so that they appear to (but are not) <h2>. Of course, this only addresses this issue visually. For true accessibility it would need to be a structural change. 
+
+The key accessibility needs addressed with this custom css:
+- Provide sufficient contrast between foreground and background
+- Don’t use color alone to convey information
+- Ensure that interactive elements are easy to identify
+
+Some methods used to do this:
+- add underlines to links
+- add hovers and focus states that are not simple color changes alone
+- increase color contrast
+
+Misc other things fixed, but not specific to accessibility:
+- some elements didn't reflect the font families I picked for the template and were defaulting to other ones
+- added a header to the search page (again, I couldn't add a real h1 so I added text that is styled like an h1 using ::before)
+- changed spacing and added border between blog entries on the list page
+
+Note: I know there are still accessibility issues present on the site. For example I haven't had a chance to add alt text to all images I added years ago, before I knew how important alt text was.
+
+====== END ABOUT ====== */
+
+
+/* ====== GENERAL ====== */
+
+/* Adding underlines to links, the padding helps the color flip on hover look better */
+.html-block a:not(.sqs-block-button-element), 
+.markdown-block a:not(.sqs-block-button-element), 
+.entry-more-link a:not(.sqs-block-button-element), 
+.layout-caption-below .image-caption a:not(.sqs-block-button-element), 
+.summary-excerpt a:not(.sqs-block-button-element), 
+.p-summary a:not(.sqs-block-button-element)
+{ 
+  text-decoration: underline; 
+  padding: 1px 3px 3px 3px; 
+}
+
+/* Adding very clear hover/focus state changes to links by changing them from dark grey text on white to white text on dark green */
+.html-block a:not(.sqs-block-button-element):hover, .markdown-block a:not(.sqs-block-button-element):hover, 
+.entry-more-link a:not(.sqs-block-button-element):hover, .layout-caption-below .image-caption a:not(.sqs-block-button-element):hover, 
+.summary-excerpt a:not(.sqs-block-button-element):hover, .p-summary a:not(.sqs-block-button-element):hover, 
+.html-block a:not(.sqs-block-button-element):focus, .markdown-block a:not(.sqs-block-button-element):focus, 
+.entry-more-link a:not(.sqs-block-button-element):focus, .layout-caption-below .image-caption a:not(.sqs-block-button-element):focus, 
+.summary-excerpt a:not(.sqs-block-button-element):focus, .p-summary a:not(.sqs-block-button-element):focus
+{ 
+  background: hsl(99, 28%, 36%); 
+  color: #fff; 
+}
+
+
+/* ===== TOP NAVIGATION ====== */
+
+/* adding underline on hover/focus on top navigation */
+#headerNav nav a:hover, #headerNav nav .folder-toggle:hover, 
+#headerNav nav a:focus, #headerNav nav .folder-toggle:focus 
+{ 
+  text-decoration: underline; 
+}
+/* same for button on right edge of top navigation */
+.nav-button-style-outline.enable-nav-button #headerNav nav>div:not(.folder):last-child a:hover,
+.nav-button-style-outline.enable-nav-button #headerNav nav>div:not(.folder):last-child a:focus
+{ 
+  text-decoration: underline; 
+}
+
+
+/* ====== FOOTER ====== */
+
+/* footer navigation style overrides */
+#footer nav:not(.sqs-svg-icon--list) 
+{
+  display:flex; 
+  justify-content: space-evenly;
+  font-family: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 16px;
+  letter-spacing: inherit;
+}
+#footer nav:not(.sqs-svg-icon--list) a
+{ 
+  text-decoration: underline; 
+  letter-spacing: 2px; 
+  padding: 5px; 
+}
+#footer nav:not(.sqs-svg-icon--list) a:hover, #footer nav:not(.sqs-svg-icon--list) a:focus
+{ 
+  background: #547642; 
+  color: #fff; 
+}
+
+/* removed opacity from search input in footer to increase color contrast */
+.sqs-search-ui-button-wrapper .search-input 
+{ 
+  opacity: 1 
+}
+
+
+/* ====== CASE STUDIES ====== */
+/* https://kathy-bateman.squarespace.com/case-study-school-mobile-app */
+
+/* Changes to left menu  */
+.category-nav a, .folder-nav a
+{ 
+  padding: 3px 5px 5px 5px; 
+  margin-left: -3px; 
+}
+.category-nav a:hover, .folder-nav a:hover, .category-nav a:focus, .folder-nav a:focus,
+.category-nav a:visited:hover, .folder-nav a:visited:hover, .category-nav a:visited:focus, .folder-nav a:visited:focus
+{ 
+  background: #547642; 
+  color: #fff; 
+}
+.category-nav li.active-link:not(.all) a:hover, .folder-nav li.active-link:not(.all) a:hover, 
+.category-nav li.active-link:not(.all) a:focus, .folder-nav li.active-link:not(.all) a:focus
+{ 
+  color: #fff; 
+}
+
+
+/* ====== HOME PAGE ====== */
+/* https://kathy-bateman.squarespace.co/ */
+
+/* added underline and hover/focus on names under linked case study gallery images */
+.sqs-gallery-block-grid.sqs-gallery-block-meta-only-title .margin-wrapper .image-slide-title {
+  text-decoration: underline;
+  font-size: 18px;
+  display: inline-block;
+  margin: 0.5em auto;
+}
+.sqs-gallery-block-grid .slide:hover .image-slide-title, .sqs-gallery-block-grid .slide:focus .image-slide-title 
+{ 
+  background: #547642; 
+  color: #fff; 
+}
+
+
+/* ====== BLOG ====== */
+/* https://www.kathybateman.com/blog */
+
+/* add page title to list of entries */
+#content > .blog-list::before { 
+  content: "UX Journey"; 
+  font-family: quiche-sans;
+  font-weight: 400;
+  font-size: 60px;
+  color: #547642;
+  line-height: 1.2em;
+  margin-bottom: 66px;
+  display:block;
+}
+
+/* left-ward adjustment for read more links to compensate for padding added to links for hover state */
+.entry-more-link a:not(.sqs-block-button-element) 
+{ 
+  margin-left: -3px;
+} 
+
+/* modifications to blog list view to increase color contrast and size of meta data text */
+.sqs-block-summary-v2 .summary-block-setting-primary-metadata-date .summary-metadata--primary .summary-metadata-item--date 
+{ 
+  font-size: 14px; 
+  opacity: 1; 
+}
+.sqs-block-summary-v2 .summary-block-wrapper:not(.summary-block-setting-show-excerpt) .summary-title, .sqs-block-summary-v2 .summary-title a 
+{ 
+  font-size: 16px; 
+  line-height: 1.5em; 
+}
+.sqs-block-summary-v2 .summary-block-setting-design-list .summary-item 
+{ 
+  padding-bottom: 0 !important; 
+}
+#rightSidebar .sqs-block-html .sqs-block-content p 
+{ 
+  font-size: 16px; 
+  line-height: 1.5em;
+} 
+
+/* added underline to links on hover/focus */
+.sqs-block-summary-v2 .summary-title a:hover, .sqs-block-summary-v2 .summary-title a:link:hover, .sqs-block-summary-v2 .summary-title a:focus, .sqs-block-summary-v2 .summary-title a:link:focus, article header h1 a:hover, article header h1 a:focus, .entry-dateline a:hover, .entry-dateline a:focus, .entry-morefrom a:hover, .entry-morefrom a:focus, .entry-tags a:hover, .entry-tags a:focus
+{ 
+  text-decoration: underline; 
+}
+
+/* added underline and hover/focus to pagination at bottom of blog pages */
+.pagination>div a span 
+{ 
+  padding: 5px; 
+  text-decoration: underline; 
+}
+.pagination>div.newer a span, .pagination>div.older a span 
+{ 
+  margin-right: -5px;
+}
+.pagination>div a:hover span, .pagination>div a:focus span  
+{ 
+  background: #547642; 
+  color: #fff  
+}
+
+/* hid the sharing / like options */
+.entry-actions { display: none; }
+
+/* make article titles look like h2 instead of h1, wish I could have just made them h2 :( */
+.view-list article header h1 a, .view-list article header h1 {
+  font-size: 36px;
+  line-height: 43.2px !important;
+  font-weight: 500;
+  color: hsl(99, 0%, 21%);
+}
+
+/* add underlines on hover */
+.view-list article header h1 a:hover, .view-list article header h1 a:focus 
+{ 
+  text-decoration:underline; 
+}
+
+/* adjust padding and look between entries */
+.view-list article { 
+    padding: 32px 0;
+    border-top: 1px solid rgba(31, 31, 31, .15);
+    margin: 32px 0;
+}
+.view-list .entry+.entry { margin-top: 32px; }
+  
+
+/* ====== SEARCH ====== */
+/* https://www.kathybateman.com/search */
+
+/* adjusting sizes and colors on search page to match rest of site */
+.sqs-search-container input 
+{ 
+  font-size: 22px; 
+  color: hsl(0, 0%, 12%); 
+}
+.sqs-search-container-item .sqs-title 
+{ 
+  font-family:  quiche-sans; 
+  color: rgb(54, 54, 54); 
+  font-weight: 500; font-size: 36px; 
+}
+.sqs-search-container-item .sqs-content 
+{ 
+  font-weight: 300; 
+  line-height: 1.6em; 
+  color: rgb(54, 54, 54); 
+}
+
+/* add space between last search result on page and "see more" button */
+.sqs-search-page-more-wrapper 
+{ 
+  margin-top: 4em; 
+}
+
+/* change "see more" button to match font family of site */
+.sqs-search-page-more 
+{ 
+  font-family: "Plus Jakarta Sans" !important; 
+  letter-spacing: 2px !important; 
+}
+
+/* improve hover/focus state */
+.sqs-search-page-more:hover, .sqs-search-page-more:focus 
+{ 
+  text-decoration: underline; 
+  opacity: 1 !important; 
+  background-color: #547642 !important; 
+}
+
+/* add hover/focus on results since they're clickable */
+.search-result:hover .sqs-title, .search-result:focus .sqs-title 
+{ 
+  text-decoration: underline; 
+} 
+
+/* add page title to search page */
+#content > .sqs-search-page::before { 
+  content: "Search"; 
+  font-family: quiche-sans;
+  font-weight: 400;
+  font-size: 60px;
+  color: #547642;
+  line-height: 1.2em;
+  margin-bottom: .5em;
+  display:block;
+}
+  
